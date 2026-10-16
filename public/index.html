@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Panier Box checkout (Flow demo)</title>
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+
+    <body>
+        <div id="successToast" class="toast success">
+            <span>Payment authorised</span>
+        </div>
+
+        <div id="failedToast" class="toast failed">
+            <span>The payment failed, try again</span>
+        </div>
+
+        <main>
+            <h1>Panier Box</h1>
+
+            <!-- 1. Basket -->
+            <section class="panel" id="shop">
+                <h2>1. Your order</h2>
+                <div id="boxes"></div>
+                <label id="date-row" hidden>
+                    Delivery date <input type="date" id="delivery-date" />
+                </label>
+                <p id="sub-note" class="note" hidden>
+                    Subscription: your card is saved and charged €68.00 every week.
+                    Paid by card. You can cancel any time.
+                </p>
+                <h3>Add-ons</h3>
+                <div id="addons"></div>
+                <p class="total">Total <strong id="total">€0.00</strong></p>
+            </section>
+
+            <!-- 2. Delivery country: decides address and payment methods -->
+            <section class="panel" id="delivery">
+                <h2>2. Delivery country</h2>
+                <div id="countries"></div>
+                <button type="button" id="btn-continue" class="primary">Continue to payment</button>
+                <p id="shop-error" class="error"></p>
+            </section>
+
+            <!-- 3. Checkout (Flow) -->
+            <section class="panel" id="checkout" hidden>
+                <h2>3. Payment</h2>
+                <div id="flow-container"></div>
+            </section>
+
+            <!-- 4. Ops view, after authorisation -->
+            <section class="panel" id="ops" hidden>
+                <h2>4. Order lifecycle (Panier Box ops view)</h2>
+                <p class="status-line">Payment status <strong id="payment-status">-</strong></p>
+                <button type="button" id="btn-capture">Box dispatched → Capture</button>
+                <button type="button" id="btn-void">Cancelled before dispatch → Void</button>
+                <button type="button" id="btn-refund">Problem after dispatch → Refund</button>
+                <button type="button" id="btn-renew" hidden>Next week → Charge renewal (merchant-initiated)</button>
+                <p id="ops-message"></p>
+            </section>
+
+            <!-- 5. Webhooks: what Checkout.com has notified our server about -->
+            <section class="panel">
+                <h2>Webhooks received</h2>
+                <div id="events"><p class="hint">None yet</p></div>
+            </section>
+        </main>
+
+        <!-- Flow must always be loaded from Checkout.com (PCI) -->
+        <script src="https://checkout-web-components.checkout.com/index.js"></script>
+        <script src="app.js"></script>
+    </body>
+</html>
